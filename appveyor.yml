@@ -1,0 +1,4 @@
+install:
+  - cinst pester
+
+build: off
