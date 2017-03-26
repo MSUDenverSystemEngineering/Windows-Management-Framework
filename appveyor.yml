@@ -1,5 +1,5 @@
 install:
-  - cinst pester
+  - cinst pester -y
   - ps: Install-PackageProvider -Name NuGet -Force
   - ps: Install-Module PsScriptAnalyzer -Force
 
@@ -8,6 +8,7 @@ build: false
 test_script:
   - ps: |
       Add-AppveyorTest -Name "PsScriptAnalyzer" -Outcome Running
+      Invke-Pester
       $Results = Invoke-ScriptAnalyzer -Path $pwd -Recurse -Severity Error -ErrorAction SilentlyContinue
       If ($Results) {
         $ResultString = $Results | Out-String
