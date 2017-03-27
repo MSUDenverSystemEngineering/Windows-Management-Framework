@@ -1,7 +1,8 @@
 install:
-  - cinst pester -y
-  - ps: Install-PackageProvider -Name NuGet -Force
-  - ps: Install-Module PsScriptAnalyzer -Force
+  - cinst -y pester
+  #- ps: Install-PackageProvider -Name NuGet -Force
+  #- ps: Install-Module PsScriptAnalyzer -Force
+  - ps: nuget install PsScriptAnalyzer
 
 build: false
 
@@ -9,11 +10,11 @@ test_script:
   - ps: |
       Add-AppveyorTest -Name "PsScriptAnalyzer" -Outcome Running
       Invoke-Pester
-      $Results = Invoke-ScriptAnalyzer -Path $pwd -Recurse -Severity Error -ErrorAction SilentlyContinue
+      $Results = Invoke-ScriptAnalyzer -Path . -Recurse -Severity Error,Warning -ErrorAction SilentlyContinue
       If ($Results) {
         $ResultString = $Results | Out-String
         Write-Warning $ResultString
-        Add-AppveyorMessage -Message "PSScriptAnalyzer output contained one or more result(s) with 'Error' severity.`
+        Add-AppveyorMessage -Message "PSScriptAnalyzer output contained one or more result(s) with 'Error' or 'Warning' severity.`
         Check the 'Tests' tab of this build for more details." -Category Error
         Update-AppveyorTest -Name "PsScriptAnalyzer" -Outcome Failed -ErrorMessage $ResultString
 
