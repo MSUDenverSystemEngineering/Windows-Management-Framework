@@ -21,7 +21,8 @@ build_script:
 #      test configuration         #
 #---------------------------------#
 test_script:
-  - ps: . .\AppVeyor\AppVeyorTest.ps1
+#  - ps: . .\AppVeyor\AppVeyorTest.ps1
+  - ps: . .\AppVeyor\AppVeyorTesting.ps1
 
 #---------------------------------#
 #      deployment configuration   #
