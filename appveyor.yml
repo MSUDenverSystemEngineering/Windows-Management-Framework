@@ -2,7 +2,9 @@ install:
   - cinst -y pester
   #- ps: Install-PackageProvider -Name NuGet -Force
   #- ps: Install-Module PsScriptAnalyzer -Force
-  - ps: nuget install PsScriptAnalyzer
+  - ps: Install-Module -Name Pester -Repository PSGallery -Force
+  - ps: Install-Module PSScriptAnalyzer -Repository PSGallery -force
+
 
 build: false
 
